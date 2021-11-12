@@ -100,6 +100,7 @@ jobs:
             description: "bitpit :: Open source library for scientific High Performance Computing"
           notification_email: coverity@optimad.it
           build_command_prepend: >
+            export COVERITY_SITE_CC="gcc-7;g++-7";
             mkdir build;
             cd build;
             cmake -DCMAKE_C_COMPILER=${C_COMPILER} \
@@ -112,6 +113,7 @@ jobs:
               -DBITPIT_VERBOSE_MAKE=True \
               ..;
           build_command: >
+            export COVERITY_SITE_CC="gcc-7;g++-7";
             make -j2
             cat /home/travis/build/optimad/bitpit/build/cov-int/build-log.txt
           branch_pattern: coverity
