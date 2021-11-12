@@ -82,12 +82,15 @@ jobs:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - gfortran
+            - gcc-7
+            - g++-7
+            - gfortran-7
             - cmake
             - libblas-dev
             - liblapack-dev
             - liblapacke-dev
             - openmpi-bin
+            - libboost-all-dev
             - libopenmpi-dev
             - libpetsc3.6
             - libpetsc3.6.2-dev
@@ -113,10 +116,11 @@ jobs:
           branch_pattern: coverity
 
       env:
-        - C_COMPILER="gcc"
-        - CXX_COMPILER="g++"
-        - Fortran_COMPILER="gfortran"
+        - C_COMPILER="gcc-7"
+        - CXX_COMPILER="g++-7"
+        - Fortran_COMPILER="gfortran-7"
         - BUILD_TYPE="Debug" BITPIT_ENABLE_MPI="True"
+        - COVERITY_SITE_CC="gcc-7;g++-7"
 
         # Encrypted COVERITY_SCAN_TOKEN
         - secure: "q4Pdqc6eiar7cxgr+iqmED+/vDRq+yE7kzY0GM/gFUpuYMVEh7Rox4TWcPDadLAWsFXIQhDkomoWVC6ButyCqtqa41WDG7aeo73bRG10MV4n5uMzPasLE9KS1KQBmKHN/nofuX6S0IR8EsTOymdtXV4Wsc8T0uEOn/FDsVa+i4o2UHQDmyzPJ4yXnYh/98Q3umVC5nqrTfn43oqHUIedYqPv8LQLZTQBYhY2I4q1J/kTntyele79Zt1KmCdsQYZlMLZ5kT2/aVZpQ4nlvpC61BMCmKBvdEEEP13W5FpBF7KmZqOZqRZLbIxkP1UMOrsjbPXOD1c9INYmII+ouSh5DLiBpHFNTFp854s21Oa7A93igtYM5BLIGsKCTCyXdWi59WGKGY4jtSMKM0XnRzQ/Wpd9fEFyaokebJx8YuWs/JUPSDovoifmbjo9hwNQNeomSKMEieqFXRAqX8qEQ1MPxxP+Pdku8/CwJ15yZmNSA/gh/rbrFykC5btu2FHeFxaXe1HYF8EOEi8nWlseOC3obdBdzIUM8zoOCQroyuom+QWEuOu1AGwSdwMS2K7xKDfrYQSbjb8KkfSb+s6xAcQZHKiBLgX4eeYWabUbFlCJl4hGyQXjGZpCiaY8q7GMdgslgPE4e6ALl6BnmLCupBsdMDvSP9YB5PUPaPeK6B33SrM="
