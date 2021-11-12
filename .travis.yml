@@ -113,6 +113,7 @@ jobs:
               ..;
           build_command: >
             make -j2
+            cat /home/travis/build/optimad/bitpit/build/cov-int/build-log.txt
           branch_pattern: coverity
 
       env:
