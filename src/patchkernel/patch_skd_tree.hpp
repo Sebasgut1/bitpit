@@ -99,9 +99,9 @@ class SkdNode : public SkdBox {
 friend class PatchSkdTree;
 
 public:
-    static const std::size_t NULL_ID;
+    static BITPIT_API const std::size_t NULL_ID;
 
-    constexpr static const int MAX_CHILDREN = 2;
+    constexpr static BITPIT_API const int MAX_CHILDREN = 2;
 
     enum ChildLocation {
         CHILD_LEFT  = 0,
