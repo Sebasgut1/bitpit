@@ -451,14 +451,15 @@ endfunction()
 
 # Set build type variable
 if(NOT CMAKE_BUILD_TYPE)
-    set(SUPPORTED_BUILD_TYPE "Coverage" "Debug" "Release" "RelWithDebInfo" "MinSizeRel" "GNUProfiling" "ScalascaProfiling")
-
+    if(MSVC)
+        set(SUPPORTED_BUILD_TYPE "Coverage" "Debug" "Release" "RelWithDebInfo" "MinSizeRel") 
+    else()
+        set(SUPPORTED_BUILD_TYPE "Coverage" "Debug" "Release" "RelWithDebInfo" "MinSizeRel" "GNUProfiling" "ScalascaProfiling")
+    endif()
+    
     # Set default build type to Debug
     string(REPLACE ";" " " SUPPORTED_BUILD_TYPE_STRING "${SUPPORTED_BUILD_TYPE}")
     set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Choose the type of build, options are: ${SUPPORTED_BUILD_TYPE_STRING}." FORCE)
-
-    # Set the possible values of build type for the GUI
-    set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ${SUPPORTED_BUILD_TYPE})
 endif()
 
 #------------------------------------------------------------------------------------#
@@ -726,20 +727,24 @@ list(REVERSE EXTERNAL_DEPS)
 list(REMOVE_DUPLICATES EXTERNAL_DEPS)
 
 # Enable additional languages
-set(BLAS_LANGUAGES "Fortran")
-set(CBLAS_LANGUAGES "C")
-set(LAPACK_LANGUAGES "Fortran")
-set(LAPACKE_LANGUAGES "C")
-set(PETSC_LANGUAGES "Fortran;C")
+if(MSVC)
+    enable_language("C")
+else()
+    set(BLAS_LANGUAGES "Fortran")
+    set(CBLAS_LANGUAGES "C")
+    set(LAPACK_LANGUAGES "Fortran")
+    set(LAPACKE_LANGUAGES "C")
+    set(PETSC_LANGUAGES "Fortran;C")
 
-foreach(DEP_NAME IN LISTS EXTERNAL_DEPS)
-    if(DEFINED ${DEP_NAME}_LANGUAGES)
-        string(TOUPPER ${DEP_NAME} UPPER_DEP_NAME)
-        foreach(LANGUAGE IN LISTS ${UPPER_DEP_NAME}_LANGUAGES)
-            enable_language(${LANGUAGE})
-        endforeach()
-    endif()
-endforeach()
+    foreach(DEP_NAME IN LISTS EXTERNAL_DEPS)
+        if(DEFINED ${DEP_NAME}_LANGUAGES)
+            string(TOUPPER ${DEP_NAME} UPPER_DEP_NAME)
+            foreach(LANGUAGE IN LISTS ${UPPER_DEP_NAME}_LANGUAGES)
+                enable_language(${LANGUAGE})
+            endforeach()
+        endif()
+    endforeach()
+endif()
 
 # Add external dependencies
 #
@@ -962,25 +967,51 @@ SET(CMAKE_SHARED_LINKER_FLAGS_SCALASCAPROFILING "" CACHE STRING
 MARK_AS_ADVANCED(CMAKE_SHARED_LINKER_FLAGS_SCALASCAPROFILING)
 
 # Standard build types
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fmessage-length=0")
-set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g")
-set(CMAKE_C_FLAGS_DEBUG "-O0 -g")
-set(CMAKE_C_FLAGS_RELEASE "-O2")
+if(MSVC) 
+    set(CMAKE_C_FLAGS_RELWITHDEBINFO "/O2 /Zi /Zo")
+    set(CMAKE_C_FLAGS_DEBUG "/Od /Zi")
+    set(CMAKE_C_FLAGS_RELEASE "/O2")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fmessage-length=0")
-set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
-set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g")
-set(CMAKE_CXX_FLAGS_RELEASE "-O2")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/O2 /Zi /Zo")
+    set(CMAKE_CXX_FLAGS_DEBUG "/Od /Zi")
+    set(CMAKE_CXX_FLAGS_RELEASE "/O2")
 
-if (ENABLE_WARNINGS)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
+    if (ENABLE_WARNINGS)
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /W3")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3")
+    else()
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /W0")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W0")
+    endif()
+else()
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fmessage-length=0")
+    set(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g")
+    set(CMAKE_C_FLAGS_DEBUG "-O0 -g")
+    set(CMAKE_C_FLAGS_RELEASE "-O2")
+
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fmessage-length=0")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
+    set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g")
+    set(CMAKE_CXX_FLAGS_RELEASE "-O2")
+
+    if (ENABLE_WARNINGS)
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
+    endif()
 endif()
 
 if (NOT ("${CMAKE_VERSION}" VERSION_LESS "2.8.12"))
-    add_compile_options("-std=c++11")
+    if(MSVC)
+        add_compile_options("/std:c++14")
+    else()
+        add_compile_options("-std=c++11")
+    endif()
 else ()
-    add_definitions("-std=c++11")
+    if(MSVC)
+        add_definitions("/std:c++14")
+    else()
+        add_definitions("-std=c++11")
+    endif()
 endif ()
 
 # Coverage build type
