@@ -9,3 +9,8 @@ add_subdirectory(LAPACKE)
 
 # PETSc
 add_subdirectory(PETSc)
+
+#CMakeNuGetTools
+if(MSVC)
+    add_subdirectory(CMakeNuGetTools)
+endif()
