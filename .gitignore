@@ -2,6 +2,7 @@ build/
 release/
 debug/
 CMakeFiles/
+cmake-build-debug/
 *.swp
 *~
 .cproject
