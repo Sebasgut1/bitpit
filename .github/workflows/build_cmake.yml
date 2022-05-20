@@ -59,6 +59,14 @@ jobs:
         if (NOT "${{ runner.os }}" STREQUAL "Windows")
           execute_process(
             COMMAND chmod +x ninja
+            COMMAND apt-get install libblas-dev 
+            COMMAND apt-get install liblapack-dev
+            COMMAND apt-get install liblapacke-dev
+            COMMAND apt-get install openmpi-bin
+            COMMAND apt-get install libboost-all-dev
+            COMMAND apt-get install libopenmpi-dev
+            COMMAND apt-get install libpetsc3.6
+            COMMAND apt-get install libpetsc3.6.2-dev
             COMMAND chmod +x ${cmake_dir}/cmake
           )
         endif()
