@@ -67,11 +67,8 @@ jobs:
           sudo apt-get install openmpi-bin
           sudo apt-get install libboost-all-dev
           sudo apt-get install libopenmpi-dev
-          sudo apt-get install git -y
-          git clone -b release https://gitlab.com/petsc/petsc.git petsc
-          sudo apt-get install petsc-dev
-          sudo apt-get install libpetsc-real3.12
-          sudo apt-get update
+          sudo apt-get update -y
+          sudo apt-get install -y petsc-dev
           sudo apt-get install ninja-build cmake
           ninja --version
           cmake --version
@@ -95,11 +92,8 @@ jobs:
           sudo apt-get install openmpi-bin
           sudo apt-get install libboost-all-dev
           sudo apt-get install libopenmpi-dev
-          sudo apt-get install git -y
-          git clone -b release https://gitlab.com/petsc/petsc.git petsc
-          sudo apt-get install petsc-dev
-          sudo apt-get install libpetsc-real3.12
-          sudo apt-get update
+          sudo apt-get update -y
+          sudo apt-get install -y petsc-dev
           sudo apt-get install ninja-build cmake gcc-9 g++-9
           sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 90 --slave /usr/bin/g++ g++ /usr/bin/g++-9 --slave /usr/bin/gcov gcov /usr/bin/gcov-9
           echo gcc version after
