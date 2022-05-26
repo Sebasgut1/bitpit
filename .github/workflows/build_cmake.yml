@@ -56,7 +56,15 @@ jobs:
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC')
         run: |
           sudo apt-get install build-essential
-          sudo apt-get install -y ninja-build gdb gdbserver git cmake-curses-gui gfortran
+          sudo apt-get install -y ninja-build gdb gdbserver git cmake-curses-gui gfortran          
+          sudo apt-get update
+          sudo apt-get install \
+          make \
+          gcc \
+          python3 \
+          gfortran \
+          g++ \
+          git
           sudo apt-get install libxml2-dev 
           sudo apt-get install libcurl4-openssl-dev
           sudo apt-get install libmetis-dev
@@ -67,14 +75,7 @@ jobs:
           sudo apt-get install openmpi-bin
           sudo apt-get install libboost-all-dev
           sudo apt-get install libopenmpi-dev
-          sudo apt-get update -y
-          sudo apt-get install -y petsc-dev
-          sudo mkdir /opt/petsc
-          sudo chown user:group /opt/petsc
-          cd /home/userid/petsc
-          ./configure --prefix=/opt/petsc/my-root-petsc-install --some-other-options
-          make
-          make install
+          sudo apt install petsc-dev
           sudo apt-get install ninja-build cmake
           ninja --version
           cmake --version
@@ -88,6 +89,14 @@ jobs:
           sudo add-apt-repository ppa:ubuntu-toolchain-r/test
           sudo apt-get install build-essential
           sudo apt-get install -y ninja-build gdb gdbserver git cmake-curses-gui gfortran
+          sudo apt-get update
+          sudo apt-get install \
+          make \
+          gcc \
+          python3 \
+          gfortran \
+          g++ \
+          git
           sudo apt-get install libxml2-dev 
           sudo apt-get install libcurl4-openssl-dev
           sudo apt-get install libmetis-dev
@@ -98,14 +107,7 @@ jobs:
           sudo apt-get install openmpi-bin
           sudo apt-get install libboost-all-dev
           sudo apt-get install libopenmpi-dev
-          sudo apt-get update
-          sudo apt-get install -y petsc-dev
-          sudo mkdir /opt/petsc
-          sudo chown user:group /opt/petsc
-          cd /home/userid/petsc
-          ./configure --prefix=/opt/petsc/my-root-petsc-install --some-other-options
-          make
-          make install
+          sudo apt install petsc-dev
           sudo apt-get install ninja-build cmake gcc-9 g++-9
           sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 90 --slave /usr/bin/g++ g++ /usr/bin/g++-9 --slave /usr/bin/gcov gcov /usr/bin/gcov-9
           echo gcc version after
