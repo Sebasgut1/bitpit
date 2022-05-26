@@ -67,6 +67,8 @@ jobs:
           sudo apt-get install openmpi-bin
           sudo apt-get install libboost-all-dev
           sudo apt-get install libopenmpi-dev
+          sudo apt-get install git -y
+          git clone -b release https://gitlab.com/petsc/petsc.git petsc
           sudo apt-get install petsc-dev
           sudo apt-get update
           sudo apt-get install ninja-build cmake
@@ -92,6 +94,8 @@ jobs:
           sudo apt-get install openmpi-bin
           sudo apt-get install libboost-all-dev
           sudo apt-get install libopenmpi-dev
+          sudo apt-get install git -y
+          git clone -b release https://gitlab.com/petsc/petsc.git petsc
           sudo apt-get install petsc-dev
           sudo apt-get update
           sudo apt-get install ninja-build cmake gcc-9 g++-9
