@@ -32,6 +32,16 @@ jobs:
             archiver: "7z a",
             generators: "Ninja"
           }
+          - {
+            name: "Ubuntu_Latest_GCC Debug",
+            os: ubuntu-latest,
+            artifact: "ubuntu_gcc.7z",
+            build_type: "Debug",
+            cc: "gcc",
+            cxx: "g++",
+            archiver: "7z a",
+            generators: "Ninja"
+          }
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -78,7 +88,7 @@ jobs:
           mkdir build
           cd build
           cmake -DBITPIT_ENABLE_MPI=ON -DPETSC_DIR=/usr/lib/petsc -DPETSC_CURRENT=OFF -DCMAKE_INSTALL_PREFIX:PATH=instdir ../
-          make -j8 
+          make -j8 && ctest
 
       - name: Install Strip
         shell: bash
