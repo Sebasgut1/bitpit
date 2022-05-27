@@ -55,25 +55,26 @@ jobs:
       - name: Install dependencies on ubuntu
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC')
         run: |
-          sudo apt-get install build-essential
-          sudo apt-get install -y ninja-build gdb gdbserver git cmake-curses-gui gfortran          
-          sudo apt-get update
-          sudo apt-get install libcurl4-openssl-dev
-          sudo apt-get install libxml2-dev 
-          sudo apt-get install libmetis-dev
-          sudo apt-get install libparmetis-dev
-          sudo apt-get install libblas-dev 
-          sudo apt-get install liblapack-dev
-          sudo apt-get install liblapacke-dev
-          sudo apt-get install openmpi-bin
-          sudo apt-get install libboost-all-dev
-          sudo apt-get install libopenmpi-dev
-          sudo apt-get install petsc-dev
-          sudo apt-get install ninja-build cmake
-          mkdir build;
-          cd build;
-          cmake -DPETSC_DIR=/usr/lib/petsc  -DBITPIT_ENABLE_MPI= ON  -DBITPIT_VERBOSE_MAKE=ON  ../
-          make -j2 && ctest;
+          apt update
+          apt install build-essential
+          apt-get install -y ninja-build
+          apt-get install git
+          apt-get install cmake-curses-gui
+          apt-get install gfortran
+          apt-get install libblas-dev
+          apt-get install liblapack-dev
+          apt-get install liblapacke-dev
+          apt-get install openmpi-bin
+          apt-get install libboost-all-dev
+          apt-get install libopenmpi-dev
+          apt-get install petsc-dev
+          apt-get install libxml2-dev
+          apt-get install vim
+          apt-get install mpi
+          mkdir build
+          cd build
+          cmake -DBITPIT_ENABLE_MPI=ON -DPETSC_DIR=/usr/lib/petsc -DPETSC_CURRENT=OFF ../
+          make -j2 && ctest
           ninja --version
           cmake --version
           gcc --version
