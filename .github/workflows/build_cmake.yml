@@ -72,10 +72,11 @@ jobs:
           mkdir build
           cd build
           cmake -DBITPIT_ENABLE_MPI=ON -DPETSC_DIR=/usr/lib/petsc -DPETSC_CURRENT=OFF ../
-          make -j2 && ctest
+
       - name: Build
         shell: bash
-        run: cmake --build . --config ${{ matrix.config.build_type }}
+        run: |
+          make -j2 && ctest
 
       - name: Install Strip
         shell: bash
