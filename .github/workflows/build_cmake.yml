@@ -32,16 +32,6 @@ jobs:
             archiver: "7z a",
             generators: "Ninja"
           }
-          - {
-            name: "Ubuntu_Latest_GCC Debug",
-            os: ubuntu-latest,
-            artifact: "ubuntu_gcc.7z",
-            build_type: "Debug",
-            cc: "gcc",
-            cxx: "g++",
-            archiver: "7z a",
-            generators: "Ninja"
-          }
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -71,26 +61,27 @@ jobs:
           sudo apt-get install vim
           sudo apt-get install mpi
           mkdir build
+          cd build
           cmake -DBITPIT_ENABLE_MPI=ON -DPETSC_DIR=/usr/lib/petsc -DPETSC_CURRENT=OFF ../
-          make -j8 && ctest
-    
+          make -j2 && ctest
           ninja --version
           cmake --version
           gcc --version
+
       - name: Configure
         shell: bash
         run: |
           mkdir build
           mkdir instdir
-          
-          cd build
-          cmake -DBITPIT_ENABLE_MPI=ON -DPETSC_DIR=/usr/lib/petsc -DPETSC_CURRENT=OFF ../
-          
-
+          cmake \
+            -S . \
+            -B . \
+            -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} \
+            -G "${{ matrix.config.generators }}" \
+            -DCMAKE_INSTALL_PREFIX:PATH=instdir
       - name: Build
         shell: bash
-        run: |
-          make -j8 && ctest
+        run: cmake --build . --config ${{ matrix.config.build_type }}
 
       - name: Install Strip
         shell: bash
