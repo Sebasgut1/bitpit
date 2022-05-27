@@ -72,10 +72,7 @@ jobs:
           sudo apt-get install ninja-build cmake
           mkdir build;
           cd build;
-          cmake -DCMAKE_C_COMPILER=gcc-7 \
-           -DCMAKE_CXX_COMPILER= g++-7 \
-           -DCMAKE_Fortran_COMPILER=gfortran-7 \
-           -DPETSC_DIR=/usr/lib/petscdir
+          cmake -DPETSC_DIR=/usr/lib/petscdir
           ninja --version
           cmake --version
           gcc --version
