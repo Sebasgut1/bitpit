@@ -79,15 +79,18 @@ jobs:
         run: |
           mkdir build
           mkdir instdir
+          
+          cd build
+          cmake -DBITPIT_ENABLE_MPI=ON -DPETSC_DIR=/usr/lib/petsc -DPETSC_CURRENT=OFF ../
+          
+          cd ../
           cmake \
             -S . \
             -B . \
             -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} \
             -G "${{ matrix.config.generators }}" \
             -DCMAKE_INSTALL_PREFIX:PATH=instdir
-          
-          cd build
-          cmake -DBITPIT_ENABLE_MPI=ON -DPETSC_DIR=/usr/lib/petsc -DPETSC_CURRENT=OFF ../
+
       - name: Build
         shell: bash
         run: |
