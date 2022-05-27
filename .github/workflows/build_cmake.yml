@@ -59,7 +59,7 @@ jobs:
           apt install build-essential
           apt-get install -y ninja-build
           apt-get install git
-          apt-get install cmake-curses-gui
+          apt-get install cmake
           apt-get install gfortran
           apt-get install libblas-dev
           apt-get install liblapack-dev
