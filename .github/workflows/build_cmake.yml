@@ -74,7 +74,7 @@ jobs:
           mkdir build;
           cd build;
           cmake -DPETSC_DIR=/usr/lib/petsc \
-           -DBITPIT_ENABLE_MPI= True \ 
+           -DBITPIT_ENABLE_MPI= "True" \ 
            -DBITPIT_VERBOSE_MAKE=True \
           ..;
           ninja --version
