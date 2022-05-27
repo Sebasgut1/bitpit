@@ -68,11 +68,13 @@ jobs:
           sudo apt-get install openmpi-bin
           sudo apt-get install libboost-all-dev
           sudo apt-get install libopenmpi-dev
-          sudo apt install petsc-dev
+          sudo apt install libpetsc-dev
           sudo apt-get install ninja-build cmake
           mkdir build;
           cd build;
           cmake -DPETSC_DIR=/usr/lib/petscdir
+          cmake -DBITPIT_ENABLE_MPI= True
+          cmake -DBITPIT_VERBOSE_MAKE=True
           ninja --version
           cmake --version
           gcc --version
@@ -96,14 +98,13 @@ jobs:
           sudo apt-get install openmpi-bin
           sudo apt-get install libboost-all-dev
           sudo apt-get install libopenmpi-dev
-          sudo apt install petsc-dev
+          sudo apt install libpetsc-dev
           sudo apt-get install ninja-build cmake gcc-9 g++-9
           mkdir build;
           cd build;
-          cmake -DCMAKE_C_COMPILER=gcc-7 \
-           -DCMAKE_CXX_COMPILER= g++-7 \
-           -DCMAKE_Fortran_COMPILER=gfortran-7 \
-           -DPETSC_DIR=/usr/lib/petscdir
+          cmake -DPETSC_DIR=/usr/lib/petscdir
+          cmake -DBITPIT_ENABLE_MPI= True
+          cmake -DBITPIT_VERBOSE_MAKE=True
           sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 90 --slave /usr/bin/g++ g++ /usr/bin/g++-9 --slave /usr/bin/gcov gcov /usr/bin/gcov-9
           echo gcc version after
           gcc --version
