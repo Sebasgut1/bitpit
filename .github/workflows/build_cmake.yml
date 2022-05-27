@@ -77,10 +77,9 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake -DBITPIT_ENABLE_MPI=ON -DPETSC_DIR=/usr/lib/petsc -DPETSC_CURRENT=OFF ../
-          make -j8 && ctest
+          cmake -DBITPIT_ENABLE_MPI=ON -DPETSC_DIR=/usr/lib/petsc -DPETSC_CURRENT=OFF -DCMAKE_INSTALL_PREFIX:PATH=instdir ../
+          make -j8 
 
-          cmake -S . -B . DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} -G "${{ matrix.config.generators }}" -DCMAKE_INSTALL_PREFIX:PATH=instdir
       - name: Install Strip
         shell: bash
         run: cmake --install . --strip
