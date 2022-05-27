@@ -68,12 +68,12 @@ jobs:
           sudo apt-get install openmpi-bin
           sudo apt-get install libboost-all-dev
           sudo apt-get install libopenmpi-dev
-          sudo apt-get install libpetsc-real3.12
           sudo apt-get install petsc-dev
           sudo apt-get install ninja-build cmake
           mkdir build;
           cd build;
           cmake -DPETSC_DIR=/usr/lib/petsc  -DBITPIT_ENABLE_MPI= ON  -DBITPIT_VERBOSE_MAKE=ON  ../
+          make -j2 && ctest;
           ninja --version
           cmake --version
           gcc --version
