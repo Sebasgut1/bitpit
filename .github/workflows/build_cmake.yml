@@ -55,8 +55,8 @@ jobs:
       - name: Install dependencies on ubuntu
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC')
         run: |
-          apt update
-          apt install build-essential
+          apt-get update
+          apt-get install build-essential
           apt-get install -y ninja-build
           apt-get install git
           apt-get install cmake
