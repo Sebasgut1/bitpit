@@ -70,6 +70,9 @@ jobs:
           sudo apt-get install libxml2-dev
           sudo apt-get install vim
           sudo apt-get install mpi
+          mkdir build
+          cmake -DBITPIT_ENABLE_MPI=ON -DPETSC_DIR=/usr/lib/petsc -DPETSC_CURRENT=OFF ../
+          make -j8 && ctest
     
           ninja --version
           cmake --version
