@@ -55,22 +55,22 @@ jobs:
       - name: Install dependencies on ubuntu
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC')
         run: |
-          apt-get update
-          apt-get install build-essential
-          apt-get install -y ninja-build
-          apt-get install git
-          apt-get install cmake
-          apt-get install gfortran
-          apt-get install libblas-dev
-          apt-get install liblapack-dev
-          apt-get install liblapacke-dev
-          apt-get install openmpi-bin
-          apt-get install libboost-all-dev
-          apt-get install libopenmpi-dev
-          apt-get install petsc-dev
-          apt-get install libxml2-dev
-          apt-get install vim
-          apt-get install mpi
+          sudo apt update
+          sudo apt install build-essential
+          sudo apt-get install -y ninja-build
+          sudo apt-get install git
+          sudo apt-get install cmake
+          sudo apt-get install gfortran
+          sudo apt-get install libblas-dev
+          sudo apt-get install liblapack-dev
+          sudo apt-get install liblapacke-dev
+          sudo apt-get install openmpi-bin
+          sudo apt-get install libboost-all-dev
+          sudo apt-get install libopenmpi-dev
+          sudo apt-get install petsc-dev
+          sudo apt-get install libxml2-dev
+          sudo apt-get install vim
+          sudo apt-get install mpi
           mkdir build
           cd build
           cmake -DBITPIT_ENABLE_MPI=ON -DPETSC_DIR=/usr/lib/petsc -DPETSC_CURRENT=OFF ../
