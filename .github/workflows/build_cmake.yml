@@ -73,9 +73,7 @@ jobs:
           sudo apt-get install ninja-build cmake
           mkdir build;
           cd build;
-          cmake -DPETSC_DIR=/usr/lib/petsc \
-           -DBITPIT_ENABLE_MPI= "True" \ 
-          ..;
+          cmake -DPETSC_DIR=/usr/lib/petsc  -DBITPIT_ENABLE_MPI= ON  -DBITPIT_VERBOSE_MAKE=ON  ../
           ninja --version
           cmake --version
           gcc --version
