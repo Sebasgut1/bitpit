@@ -33,6 +33,26 @@ jobs:
             generators: "Ninja"
           }
           - {
+            name: "Ubuntu_Latest_GCC Clang",
+            os: ubuntu-latest,
+            artifact: "ubuntu_gcc.7z",
+            build_type: "Release",
+            cc: "clang",
+            cxx: "clang++",
+            archiver: "7z a",
+            generators: "Ninja"
+          }
+          - {
+            name: "Ubuntu_Latest_GCC Debug Clang",
+            os: ubuntu-latest,
+            artifact: "ubuntu_gcc.7z",
+            build_type: "Debug",
+            cc: "clang",
+            cxx: "clang++",
+            archiver: "7z a",
+            generators: "Ninja"
+          }
+          - {
             name: "Ubuntu_Latest_GCC Debug",
             os: ubuntu-latest,
             artifact: "ubuntu_gcc.7z",
