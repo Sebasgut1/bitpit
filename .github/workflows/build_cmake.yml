@@ -77,7 +77,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake -DBITPIT_VERBOSE_MAKE=ON -DBITPIT_ENABLE_MPI=OFF -DPETSC_DIR=/usr/lib/petsc -DPETSC_CURRENT=ON -DCMAKE_INSTALL_PREFIX:PATH=instdir ../
+          cmake -DBITPIT_ENABLE_MPI=OFF -DBITPIT_VERBOSE_MAKE=ON  -DPETSC_DIR=/usr/lib/petsc -DPETSC_CURRENT=ON -DCMAKE_INSTALL_PREFIX:PATH=instdir ../
           make -j8 && ctest
 
       - name: Install Strip
