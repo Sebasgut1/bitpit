@@ -27,8 +27,8 @@ jobs:
             os: ubuntu-latest,
             artifact: "ubuntu_gcc.7z",
             build_type: "Release",
-            cc: "gcc",
-            cxx: "g++",
+            cc: "clang",
+            cxx: "clang++",
             archiver: "7z a",
             generators: "Ninja"
           }
@@ -56,11 +56,16 @@ jobs:
           sudo apt-get install openmpi-bin
           sudo apt-get install libboost-all-dev
           sudo apt-get install libopenmpi-dev
-          sudo apt-get install petsc-dev
           sudo apt-get install libxml2-dev
           sudo apt-get install vim
           sudo apt-get install mpi
          
+          cd opt
+          wget https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-3.17.2.tar.gz
+          tar -xzvf petsc-3.17.2.tar.gz
+          cd petsc-3.17.2
+          ./configure --with-cc=gcc --with-cxx=g++ --with-fc=gfortran --with-debugging=0 COPTFLAGS='-O3 -march=native -mtune=native' CXXOPTFLAGS='-O3 -march=native -mtune=native' FOPTFLAGS='-O3 -march=native -mtune=native' --with-mpi=0
+          make
           
           ninja --version
           cmake --version
@@ -68,18 +73,17 @@ jobs:
 
       - name: Configure
         shell: bash
+        working-directory: /
         run: |
           mkdir instdir
-         
 
       - name: Build
         shell: bash
         run: |
           mkdir build
           cd build
-          cmake -DBITPIT_ENABLE_MPI=ON -DBITPIT_VERBOSE_MAKE=ON -DCMAKE_BUILD_TYPE=Release -DPETSC_DIR=/usr/lib/petsc -DPETSC_CURRENT=ON -DCMAKE_INSTALL_PREFIX:PATH=instdir ../
-          make && ctest
-
+          cmake -DBITPIT_ENABLE_MPI=OFF -DBITPIT_VERBOSE_MAKE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DPETSC_ARCH=arch-linux-c-opt -DPETSC_DIR=/opt/petsc-3.17.2 -DPETSC_CURRENT=ON ../
+          make
       - name: Install Strip
         shell: bash
         run: |
