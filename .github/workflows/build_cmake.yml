@@ -60,6 +60,7 @@ jobs:
           sudo apt-get install vim
           sudo apt-get install mpi
          
+          ls
           cd opt
           wget https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-3.17.2.tar.gz
           tar -xzvf petsc-3.17.2.tar.gz
